@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+      layout:decorate="~{layouts/auth-masterlayout.html}">
+<head>
+</head>
+<body>
+<th:block layout:fragment="content">
+    <div class="container mt-3 mb-3">
+        <h2 class="mb-5">
+            List of Accounts
+            <a sec:authorize="hasRole('ROLE_ADMIN')" href="/senteapp/account/new" class="btn btn-outline-primary btn-lg float-right">Create New Account</a>
+        </h2>
+
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Account Number</th>
+                    <th scope="col">Account Name</th>
+                    <th scope="col">Account Type</th>
+                    <th scope="col">Date created</th>
+                    <th scope="col">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="account, iterStat : ${accounts}">
+                    <th scope="row" th:text="${iterStat.count}"></th>
+                    <td th:text="${account.accountName}"></td>
+                    <td th:text="${account.accountNumber}"></td>
+                    <td th:text="${account.accountType.accountTypeName}"></td>
+                    <td th:text="${#temporals.format(account.dateCreated, 'MMM dd, yyyy')}"></td>
+                    <td>
+                        <a th:href="@{'/senteapp/account/memmberList/view{accountId}'(accountId=${account.accountId})}" class="btn btn-sm btn-outline-info">Records</a>
+                    </td>
+                    <td>
+                        <a class="btn btn-sm btn-outline-warning" th:href="@{'/senteapp/account/edit{accountId}'(accountId=${account.accountId})}">Edit</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="d-flex justify-content-center">
+            <ul class="pagination pagination-lg">
+                <li class="page-item disabled">
+                    <a class="page-link" href="#">Pages: </a>
+                </li>
+                <li th:each="i : ${#numbers.sequence(1, accounts.totalPages)}"
+                    th:class="${currentPageNo}==${i-1}?'page-item active':'page-item'" th:if="${i} >= 1" >
+                    <a th:href="@{/senteapp/account/list(pageNo=${i-1})}"
+                       th:text="${i}" class = "page-link"></a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</th:block>
+</body>
+</html>

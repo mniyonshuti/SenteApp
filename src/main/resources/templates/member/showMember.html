@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en"  xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+      layout:decorate="~{layouts/auth-masterlayout.html}">
+<head>
+</head>
+<body>
+
+
+
+<th:block layout:fragment="content">
+
+    <div class="container mt-3">
+        <h2 class="mb-4 mb-3">
+            Page for <span th:text="${member.lastName}"></span>
+            <span th:text="${member.firstName}"></span>
+<!--            <a sec:authorize="hasRole('ROLE_MANAGER')" href="/senteapp/member/add" class="btn btn-outline-primary btn-lg float-right">Add New Member</a>-->
+        </h2>
+
+        <div class="container">
+            Member will see this page, Although Use Case not fully implemented.
+            But the data was passed to the view
+
+        </div>
+
+    </div>
+
+</th:block>
+</body>
+</html>

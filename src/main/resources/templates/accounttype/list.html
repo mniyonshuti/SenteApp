@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+      layout:decorate="~{layouts/auth-masterlayout.html}">
+<head>
+</head>
+<body>
+<th:block layout:fragment="content">
+    <div class="container mt-3 mb-3">
+
+        <h2 class="mb-5">
+            List of Account Types
+            <a sec:authorize="hasRole('ROLE_ADMIN')" href="/senteapp/accounttype/add" class="btn btn-outline-primary btn-lg float-right">Create new account type</a>
+        </h2>
+
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Account Type Number</th>
+                <th scope="col">Account Type Name</th>
+                <th scope="col">Actions</th>
+
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="accountType, iterStat : ${accounttypes}">
+                <th scope="row" th:text="${iterStat.count}"></th>
+                <td th:text="${accountType.accountTypeNumber}"></td>
+                <td th:text="${accountType.accountTypeName}"></td>
+                <td><a class="btn btn-sm btn-outline-warning" th:href="@{'/senteapp/accounttype/edit{accountTypeId}'(accountTypeId=${accountType.accountTypeId})}">Edit</a></td>
+            </tr>
+            </tbody>
+        </table>
+
+        <div class="d-flex justify-content-center">
+            <ul class="pagination pagination-lg">
+                <li class="page-item disabled">
+                    <a class="page-link" href="#">Pages: </a>
+                </li>
+                <li th:each="i : ${#numbers.sequence(1, accounttypes.totalPages)} "
+                    th:class="${currentPageNo}==${i-1}?'page-item active':'page-item'" th:if="${i} >= 1" >
+                    <a th:href="@{/senteapp/accounttype/list(pageNo=${i-1})}" th:text="${i}" class = "page-link"></a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</th:block>
+</body>
+</html>

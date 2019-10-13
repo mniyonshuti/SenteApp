@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+    <head>
+        <meta charset="UTF-8">
+        <title>Sente App</title>
+<!--        <link href="https://stackpath.bootstrapcdn.com/bootswatch/4.3.1/simplex/bootstrap.min.css" rel="stylesheet" integrity="sha384-1OYccka9EByiS23wvPFiYHBPRAgU91xYVFb8g8sen6vRiBI5Uko6+B87q8zPGUnA" crossorigin="anonymous">-->
+        <link href="https://stackpath.bootstrapcdn.com/bootswatch/4.3.1/lumen/bootstrap.min.css" rel="stylesheet" integrity="sha384-iqcNtN3rj6Y1HX/R0a3zu3ngmbdwEa9qQGHdkXwSRoiE+Gj71p0UNDSm99LcXiXV" crossorigin="anonymous">
+
+    </head>
+    <body>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <!--    nav class="navbar navbar-expand-lg navbar-dark bg-primary-->
+            <div class="container">
+            <a class="navbar-brand" href="/">sente Application</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <form class="form-inline my-2 my-lg-0">
+                <span sec:authorize="isAnonymous()" style="color:#fff;border-right: white 0px solid; padding-left: 2em; padding-right: 1em;">Welcome, Guest</span>
+                <!--<a style="color: #ffffff; margin-right: 0em;" class="nav-link" href="#">John Doe</a>-->
+                <!--<input class="form-control mr-sm-2" type="text" placeholder="Search">-->
+                <a sec:authorize="isAnonymous()" href="/senteapp/login" class="btn btn-secondary">Sign In</a>
+
+                <!--                <span>Welcome, </span><span sec:authentication="principal.username" style="color:#fff;border-right: white 0px solid; padding-left: 2em; padding-right: 1em;">Guest</span>-->
+                <a sec:authorize="isAuthenticated()" href="/senteapp/logout" class="btn btn-secondary">Sign out</a>
+            </form>
+
+            </div>
+        </nav>
+
+
+        <th:block layout:fragment="content">
+
+        </th:block>
+
+             </div>
+        </div>
+        </div>
+    </body>
+</html>
